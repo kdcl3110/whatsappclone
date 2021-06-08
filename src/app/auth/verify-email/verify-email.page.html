@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>verifyEmail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="displayTable">
+    <div class="displayTableCell">
+
+      <div class="authBlock">
+        <h3>Merci de votre inscription</h3>
+
+        <div class="formGroup" *ngIf="authService.userData as user">
+          <p class="text-center">Nous avons envoyé un e-mail de confirmation à
+            <strong>{{user.email}}</strong>.
+          </p>
+          <p class="text-center">Veuillez vérifier votre adresse e-mail et cliquer sur le lien pour vérifier votre
+            adresse e-mail.</p>
+        </div>
+
+        <!-- Calling SendVerificationMail() method using authService Api -->
+        <div class="formGroup">
+          <ion-button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
+            <i class="fas fa-redo-alt"></i>
+            Renvoyer l'e-mail de vérification
+          </ion-button>
+        </div>
+
+      </div>
+
+      <div class="redirectToLogin">
+        <span>Revenir à?<span class="redirect" routerLink="/sign-in"> Connexion</span></span>
+      </div>
+
+    </div>
+  </div>
+
+</ion-content>

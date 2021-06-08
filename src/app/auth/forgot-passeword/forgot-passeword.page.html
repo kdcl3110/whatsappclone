@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mot de passe oublié</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+
+  <ion-list class="displayTable">
+    <h3>Reinitialisation </h3>
+
+    <p class="text-center">Veuillez saisir votre adresse e-mail pour demander une réinitialisation de mot de passe.
+    </p>
+
+    <ion-item class="formGroup">
+      <ion-label position="floating">Email Address</ion-label>
+      <ion-input type="email" class="formControl" #passwordResetEmail required>
+      </ion-input>
+    </ion-item>
+
+    <!-- Calling ForgotPassword from AuthService Api -->
+    <ion-button type="submit" fill="solid" class="ion-margin-top" expand="block" (click)="authService.ForgotPassword(passwordResetEmail.value)">Reinitialiser
+    </ion-button>
+  </ion-list>
+
+  <div class="redirectToLogin">
+    <span>Revenir à? <span class="redirect" routerLink="/sign-in">Connexion</span></span>
+  </div>
+ 
+
+</ion-content>

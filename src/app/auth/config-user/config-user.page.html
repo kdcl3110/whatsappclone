@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Configuration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list class="displayTable">
+    <ion-item class="formGroup">
+      <ion-item>
+        <img src="" alt="vfd,bvjdfv">
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">nom d'utilisateur</ion-label>
+        <ion-input type="email" class="formControl" #userName required></ion-input>
+      </ion-item>
+    </ion-item>
+    <!-- Calling ForgotPassword from AuthService Api -->
+    <ion-button fill="solid" class="ion-margin" (click)="authService.configUser(userName.value)">suivant</ion-button>
+  </ion-list>
+</ion-content>

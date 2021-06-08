@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+			<ion-back-button text="" defaulthref="/tabs/tabs/chats"></ion-back-button>
+		</ion-buttons>
+    <ion-title>Utilisateurs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item lines="full" >
+    <ion-button slot="start" size="small" fill="clear">
+      <ion-avatar></ion-avatar>
+    </ion-button>
+  </ion-item>
+  <ion-list>
+    <div *ngFor="let user of chatService.users">
+      <ion-item button detail="false"
+        [routerLink]="['/tabs/chat-detail', user.payload.doc.data().uid]"
+        *ngIf="user.payload.doc.data().uid !== id" 
+        routerdirection="forward">
+            <p><img src="" alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}</p>
+      </ion-item>
+    </div>
+  </ion-list>
+</ion-content>
