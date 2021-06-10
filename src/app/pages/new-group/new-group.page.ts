@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class NewGroupPage implements OnInit {
   id: any;
   isSelect: number = 0;
+  lisUsers: any[] = []
 
   constructor(
     public chatService: ChatService,
@@ -21,9 +22,13 @@ export class NewGroupPage implements OnInit {
   }
 
   test(event) {
-    if (event.target.checked)
+    if (event.target.checked) {
       this.isSelect++
-    else
+      this.lisUsers.push(event.target.value)
+    } else {
       this.isSelect--
+      this.lisUsers.splice(this.lisUsers.indexOf(event.target.value), 1)
+    }
+    console.log(this.lisUsers)
   }
 }

@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>configGroup</ion-title>
+    <ion-buttons slot="start">
+			<ion-back-button text="" defaulthref="/tabs/tabs/chats"></ion-back-button>
+		</ion-buttons>
+
+    <ion-title>N groupe</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        creer
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item lines="none">
+      <ion-item lines="none"><img src="" alt="" class="profil"></ion-item>
+      &nbsp;&nbsp;&nbsp;<ion-item><ion-input placeholder="Taper sujet du groupe"></ion-input></ion-item>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-note>
+        <small> Veuillez donner un sujet au groupe et éventuellement une icone de group </small>
+      </ion-note>
+    </ion-item>
+  </ion-list>
+  <ion-list>
+    
+  </ion-list>
 
 </ion-content>

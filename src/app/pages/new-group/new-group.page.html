@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Nouveau Groupe</ion-title>
+    <ion-title>Ajout participants</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,7 +10,7 @@
       <ion-item detail="false"
         *ngIf="user.payload.doc.data().uid !== id" 
         routerdirection="forward">
-          <ion-checkbox (ionChange)="test($event)" [value]="user.payload.doc.data().uid" color="primary">
+          <ion-checkbox (ionChange)="test($event)" mode="ios" [value]="user.payload.doc.data().uid" color="primary">
           </ion-checkbox>
           &nbsp;&nbsp;<img src="" alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}
       </ion-item>
