@@ -6,33 +6,20 @@
 
 <ion-content>
   <ion-list class="ion-padding">
-    <ion-item class="ion-margin-top">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" class="formControl" #userName></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Mot de passe</ion-label>
-      <ion-input type="password" class="formControl" #userPassword></ion-input>
-    </ion-item>
-
-    <!-- Calling SignIn Api from AuthService -->
-    <ion-button fill="solid" class="ion-margin-top" expand="block"
-      (click)="authService.SignIn(userName.value, userPassword.value)">
-      Connexion</ion-button>
-
-    <!--<ion-item class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </ion-item>-->
-
-    <!-- Calling GoogleAuth Api from AuthService -->
-    <!--<ion-item class="formGroup">
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Log in with Google
-          </button>
-        </ion-item>-->
-
+    <form [formGroup]="authForm">
+      <ion-item class="ion-margin-top">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="text" class="formControl" formControlName="email" #userName></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input type="password" class="formControl" formControlName="password" #userPassword></ion-input>
+      </ion-item>
+      <ion-button fill="solid" [disabled]="authForm.invalid" class="ion-margin-top" expand="block"
+        (click)="authService.SignIn(userName.value, userPassword.value)">
+        Connexion</ion-button>
+    </form>
     <p>
       <span routerLink="/forgot-password">Mot de passe oublié?</span>
     </p>

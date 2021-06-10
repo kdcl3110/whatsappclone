@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Nouveau Groupe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <div *ngFor="let user of chatService.users">
+      <ion-item detail="false"
+        *ngIf="user.payload.doc.data().uid !== id" 
+        routerdirection="forward">
+          <ion-checkbox (ionChange)="test($event)" [value]="user.payload.doc.data().uid" color="primary">
+          </ion-checkbox>
+          &nbsp;&nbsp;<img src="" alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}
+      </ion-item>
+    </div>
+  </ion-list>
+  <ion-fab *ngIf="isSelect" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="config-group">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

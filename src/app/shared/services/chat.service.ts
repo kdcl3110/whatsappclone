@@ -16,11 +16,11 @@ export class ChatService implements OnInit {
   users: any;
   id: any;
   sendUser: any;
-  chats: any;
+  chats: any[];
   messageOfChat: any;
   currentChat: any;
 
-  chatSubject = new Subject();
+  chatSubject = new Subject<any[]>();
 
   constructor(
     public afs: AngularFirestore,
@@ -74,6 +74,7 @@ export class ChatService implements OnInit {
     this.afs.collection('chats').snapshotChanges().subscribe(ref => {
       this.chats = ref
       console.log(ref)
+      this.emitChat()
     })
   }
 

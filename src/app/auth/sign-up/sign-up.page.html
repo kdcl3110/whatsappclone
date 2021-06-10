@@ -6,24 +6,26 @@
 
 <ion-content>
   <ion-list class="ion-padding">
-    <ion-item class="ion-margin-top">
-      <ion-label position="floating">Nom d'utilisateur</ion-label>
-      <ion-input type="email" class="formControl" #userName required></ion-input>
-    </ion-item>
-
-    <ion-item class="ion-margin-top">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" class="formControl" #userEmail required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Mot de passe</ion-label>
-      <ion-input type="password" class="formControl" #userPwd required></ion-input>
-    </ion-item>
-
-    <!-- Calling SignIn Api from AuthService -->
-    <ion-button fill="solid" class="ion-margin-top" expand="block"
-      (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)">
-      Inscription</ion-button>
+    <form [formGroup]="userForm">
+      <ion-item class="ion-margin-top">
+        <ion-label position="floating">Nom d'utilisateur</ion-label>
+        <ion-input type="email" formControlName="username" class="formControl" #userName required></ion-input>
+      </ion-item>
+  
+      <ion-item class="ion-margin-top">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input type="email" formControlName="email" class="formControl" #userEmail required></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label position="floating">Mot de passe</ion-label>
+        <ion-input type="password" formControlName="password" class="formControl" #userPwd required></ion-input>
+      </ion-item>
+  
+      <!-- Calling SignIn Api from AuthService -->
+      <ion-button fill="solid" class="ion-margin-top" expand="block" [disabled]="userForm.invalid"
+        (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)">
+        Inscription</ion-button>
+    </form>
   </ion-list>
 </ion-content>

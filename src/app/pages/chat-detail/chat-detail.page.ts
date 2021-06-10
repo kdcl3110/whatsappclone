@@ -4,7 +4,7 @@ import { ChatService } from 'src/app/shared/services/chat.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnonymousSubject } from 'rxjs/internal/Subject';
-import { of, Subscription } from 'rxjs';
+import { BehaviorSubject, of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-chat-detail',
@@ -21,13 +21,18 @@ export class ChatDetailPage implements OnInit {
   //chats: any;
 
 
+  scrolling: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+
   constructor(
     public router: ActivatedRoute,
     public chatService: ChatService,
     public authService: AuthService
   ) { }
 
+
   ngOnInit() {
+    // this.scrollToBottom()
     // this.chatSubcribe = this.chatService.chatSubject.subscribe(
     //   (chat) => {
     //     this.chats = chat
@@ -45,7 +50,7 @@ export class ChatDetailPage implements OnInit {
       }
     }
 
-    this.chatService.getCurrentChat(this.userSend);
+    //this.chatService.getCurrentChat(this.userSend);
     // this.currentChat = this.findChat(this.userSend.uid);
     // console.log("test" + this.currentChat)
     // if (this.currentChat == "") {

@@ -29,6 +29,11 @@ const routes: Routes = [
         loadChildren: () => import('../pages/chat-new/chat-new.module').then(m => m.ChatNewPageModule),
         canActivate: [AuthGuard]
       },
+      {
+        path: 'new-group',
+        loadChildren: () => import('../pages/new-group/new-group.module').then(m => m.NewGroupPageModule),
+        canActivate: [AuthGuard]
+      },
     ]
   },
   {
