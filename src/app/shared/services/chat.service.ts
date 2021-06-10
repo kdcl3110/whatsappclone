@@ -102,7 +102,6 @@ export class ChatService implements OnInit {
       }
 
       this.setChat(res.id, newChat)
-      this.getChat()
       return res.id
     }).catch(res => {
       console.log(res)

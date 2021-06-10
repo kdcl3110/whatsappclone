@@ -17,7 +17,7 @@
     </div>
   </ion-list>
   <ion-fab *ngIf="isSelect" vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="config-group">
+    <ion-fab-button routerLink="config-group" (click)="chatGroupService.getListUser(lisUsers)">
       <ion-icon name="arrow-forward-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>

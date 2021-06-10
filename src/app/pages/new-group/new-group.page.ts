@@ -1,3 +1,4 @@
+import { ChatGroupService } from './../../shared/services/group/chat-group.service';
 import { AuthService } from './../../shared/services/auth.service';
 import { ChatService } from './../../shared/services/chat.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,8 @@ export class NewGroupPage implements OnInit {
 
   constructor(
     public chatService: ChatService,
-    public authService: AuthService
+    public authService: AuthService,
+    public chatGroupService: ChatGroupService
   ) { }
 
   ngOnInit() {

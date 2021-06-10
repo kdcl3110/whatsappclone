@@ -5,8 +5,9 @@
 		</ion-buttons>
 
     <ion-title>N groupe</ion-title>
-    <ion-buttons slot="end">
-      <ion-button>
+    <ion-buttons slot="end" 
+      *ngIf="chatGroupService.listUserData.length !== 0 && sujet.value !== ''">
+      <ion-button (click)="chatGroupService.addChatGroup(sujet.value, null)">
         creer
       </ion-button>
     </ion-buttons>
@@ -17,7 +18,7 @@
   <ion-list>
     <ion-item lines="none">
       <ion-item lines="none"><img src="" alt="" class="profil"></ion-item>
-      &nbsp;&nbsp;&nbsp;<ion-item><ion-input placeholder="Taper sujet du groupe"></ion-input></ion-item>
+      &nbsp;&nbsp;&nbsp;<ion-item><ion-input placeholder="Taper sujet du groupe" #sujet></ion-input></ion-item>
     </ion-item>
     <ion-item lines="none">
       <ion-note>
@@ -26,7 +27,14 @@
     </ion-item>
   </ion-list>
   <ion-list>
-    
+    <ion-item lines="none">
+      <ion-item lines="none" *ngFor="let user of chatGroupService.listUserData">
+        <ion-label style="text-align: center;">
+          <p><img class="profil"></p>
+          <p><small>{{ user.displayName }}</small></p>
+        </ion-label>
+      </ion-item>
+    </ion-item>
   </ion-list>
 
 </ion-content>

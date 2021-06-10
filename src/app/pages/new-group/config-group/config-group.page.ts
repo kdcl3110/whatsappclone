@@ -1,3 +1,4 @@
+import { ChatGroupService } from './../../../shared/services/group/chat-group.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfigGroupPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public chatGroupService: ChatGroupService
+  ) { }
 
   ngOnInit() {
   }
