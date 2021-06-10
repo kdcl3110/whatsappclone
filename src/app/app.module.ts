@@ -11,8 +11,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorage } from "@angular/fire/storage";
 import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +30,8 @@ import { AuthService } from "./shared/services/auth.service";
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthService
+    AuthService,
+    Camera
   ],
   bootstrap: [AppComponent],
 })

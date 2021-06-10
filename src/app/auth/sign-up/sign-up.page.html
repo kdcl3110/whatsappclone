@@ -6,6 +6,19 @@
 
 <ion-content>
   <ion-list class="ion-padding">
+    <ion-item lines="none">
+      <div>
+        <img [src]="image" class="photo">
+      </div>
+      <ion-buttons slot="">
+        <ion-button (click) ="addPhoto()">
+          <ion-icon name="images-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click) ="addPhoto()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
     <form [formGroup]="userForm">
       <ion-item class="ion-margin-top">
         <ion-label position="floating">Nom d'utilisateur</ion-label>
