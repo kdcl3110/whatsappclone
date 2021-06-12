@@ -32,30 +32,11 @@ export class ChatItemComponent implements OnInit {
   ngOnInit() {
     this.chatSubcribe = this.chatService.chatSubject.subscribe(
       (chat) => {
-        this.chatService.getCurrentChat(this.userSend);
-        console.log(chat)
-        this.chats = chat
+        this.chatService.findChat(this.userSend.uid);
+        console.log(this.chatService.currentChat)
       })
     this.chatService.emitChat()
-    // this.currentChat = this.findChat(this.userSend.uid);
-    // console.log("test" + this.currentChat)
-    // if (this.currentChat == "") {
-    //   this.currentChat = this.chatService.addChat(this.userSend, 'unique')
-    //   console.log(this.currentChat)
-    // }
+ 
   }
-
-  // findChat(uid) {
-  //   for (let chat of this.chatService.chats) {
-  //     if (chat.payload.doc.data().users.length === 2
-  //       && chat.payload.doc.data().users.indexOf(uid) > -1
-  //       && chat.payload.doc.data().users.indexOf(this.authService.getCurrentUser()) > -1
-  //     ) {
-  //       console.log(chat.payload.doc.data().users.indexOf(uid))
-  //       return chat.payload.doc.data()
-  //     }
-  //   }
-  //   return "";
-  // }
 
 }

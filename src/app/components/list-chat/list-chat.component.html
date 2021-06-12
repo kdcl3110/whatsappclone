@@ -1,0 +1,13 @@
+<ion-list >
+  <ion-item *ngFor="let chat of chats" >
+    <ion-label>
+      <ion-item>
+        <img>
+      </ion-item>
+      <ion-item>
+        <h3>{{chat.payload.doc.data().nom}}</h3>
+      </ion-item>
+      
+    </ion-label>
+  </ion-item>
+</ion-list>

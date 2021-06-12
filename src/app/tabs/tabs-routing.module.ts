@@ -44,6 +44,10 @@ const routes: Routes = [
   {
     path: 'chat-detail/:id',
     loadChildren: () => import('../pages/chat-detail/chat-detail.module').then(m => m.ChatDetailPageModule)
+  },
+  {
+    path: 'chat-group-detail/:id',
+    loadChildren: () => import('../pages/chat-group-detail/chat-group-detail.module').then(m => m.ChatGroupDetailPageModule)
   }
 ];
 

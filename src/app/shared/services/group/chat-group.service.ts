@@ -43,8 +43,10 @@ export class ChatGroupService {
       nom ,
       photo,
       message: [],
-      type: "goup"
+      type: "goup",
+      dataModif: new Date().toDateString()
     }
+    
     this.afs.collection('chats').add(chat).then(res => {
       let newChat = {
         cid: res.id,
@@ -52,9 +54,11 @@ export class ChatGroupService {
         nom ,
         photo,
         message: [],
-        type: "goup"
+        type: "goup",
+        dataModif: new Date().toDateString()
       }
       this.chatService.setChat(res.id, newChat)
+      this.router.navigate(['/tabs/chat-group-detail', res.id])
       return res.id
     })
   }

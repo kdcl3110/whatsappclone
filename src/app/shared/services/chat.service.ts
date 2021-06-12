@@ -41,25 +41,22 @@ export class ChatService implements OnInit {
   }
 
   getCurrentChat(userSend) {
-    this.currentChat = this.findChat(userSend.uid);
-    console.log(this.currentChat)
+    this.findChat(userSend.uid);
     if (this.currentChat == "") {
-      this.currentChat = this.addChat(userSend, 'unique')
-      console.log(this.currentChat)
+      this.addChat(userSend, 'unique')
     }
   }
 
   findChat(uid) {
     for (let chat of this.chats) {
-      if (chat.payload.doc.data().users.length === 2
+      if (chat.payload.doc.data().type === 'unique'
         && chat.payload.doc.data().users.indexOf(uid) > -1
         && chat.payload.doc.data().users.indexOf(this.authService.getCurrentUser()) > -1
       ) {
-        console.log(chat.payload.doc.data().users.indexOf(uid))
-        return chat.payload.doc.data()
+        return this.currentChat = chat.payload.doc.data()
       }
     }
-    return "";
+    return this.currentChat =  "";
   }
 
   getUsers() {
@@ -89,20 +86,21 @@ export class ChatService implements OnInit {
       nom: user.displayName,
       photo: user.photoURL,
       message: [],
-      type: typ
+      type: typ,
+      dataModif: (new Date()).toDateString()
     }
     this.afs.collection('chats').add(chat).then(res => {
-      let newChat = {
+      let newChat: Chat = {
         cid: res.id,
         users: [user.uid, this.authService.getCurrentUser()],
         nom: user.displayName,
         photo: user.photoURL,
         message: [],
-        type: typ
+        type: typ,
+        dataModif: (new Date()).toDateString()
       }
 
       this.setChat(res.id, newChat)
-      return res.id
     }).catch(res => {
       console.log(res)
     })
@@ -111,10 +109,4 @@ export class ChatService implements OnInit {
   setChat(cid, chat) {
     this.afs.doc(`chats/${cid}`).set(chat, { merge: true })
   }
-
-  // find(id: any) {
-  //   this.afs.doc(`users/${id}`).get().subscribe(res => {
-  //     return res.data()
-  //   })
-  // }
 }

@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorage } from "@angular/fire/storage";
+import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
 import { Camera } from '@ionic-native/camera/ngx';
@@ -25,6 +25,7 @@ import { Camera } from '@ionic-native/camera/ngx';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AngularFirestoreModule,
     FormsModule
   ],

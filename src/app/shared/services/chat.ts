@@ -4,7 +4,8 @@ export interface Chat {
     users: string[],
     photo: string,
     message: Sms[],
-    type: string
+    type: string,
+    dataModif: any
 }
 
 export interface Sms {

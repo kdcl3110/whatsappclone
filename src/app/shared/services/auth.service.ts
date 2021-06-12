@@ -4,6 +4,7 @@ import { User } from "../services/user";
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,10 @@ export class AuthService {
   userData: any;
   id: any;
   constructor(
-    public afs: AngularFirestore,   // Inject Firestore service
-    public afAuth: AngularFireAuth, // Inject Firebase auth service
+    public afs: AngularFirestore,
+    public afAuth: AngularFireAuth,
     public router: Router,
+    public afSG: AngularFireStorage,
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
     this.afAuth.authState.subscribe(user => {
@@ -44,7 +46,11 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['tabs']);
         });
-        this.SetUserData(result.user, localStorage.getItem('username'));
+
+        this.afs.doc(`users/${result.user.uid}`).update({
+          emailVerified : result.user.emailVerified
+        })
+        //this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -58,12 +64,16 @@ export class AuthService {
     })
   }
 
-  SignUp(email, password, userName) {
+  SignUp(email, password, userName, image ,imgIsSend) {
+    let urlImage
+    if(imgIsSend) urlImage = 'Profils/' + (new Date()).getTime() + 'jpg'
+
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
         this.SendVerificationMail();
         localStorage.setItem('username', userName);
-        this.SetUserData(result.user, userName);
+        if(imgIsSend) this.uploadFireBase(urlImage, image)
+        this.SetUserData(result.user, userName, urlImage);
       }).catch((error) => {
         window.alert(error.message)
       })
@@ -96,19 +106,23 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['dashboard']);
         })
-        this.SetUserData(result.user, localStorage.getItem('username'));
+        this.SetUserData(result.user);
       }).catch((error) => {
         window.alert(error)
       })
   }
 
-  SetUserData(user, userName) {
+  uploadFireBase(urlImage: any, image){
+    this.afSG.ref(urlImage).putString(image, 'data_url')
+  }
+
+  SetUserData(user, userName?:any, imge?:any) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
       uid: user.uid,
       email: user.email,
-      displayName: userName,
-      photoURL: user.photoURL,
+      displayName: (userName)? userName: user.displayName,
+      photoURL: (imge)? imge: user.photoURL,
       emailVerified: user.emailVerified
     }
     return userRef.set(userData, {

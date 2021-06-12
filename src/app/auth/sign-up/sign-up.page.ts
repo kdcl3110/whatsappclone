@@ -12,7 +12,7 @@ export class SignUpPage implements OnInit {
   
   userForm: FormGroup
   image = "https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y"
-
+  imageIsSend = false
   constructor(
     public authService: AuthService,
     public formBuilder: FormBuilder,
@@ -23,7 +23,7 @@ export class SignUpPage implements OnInit {
     this.initForm()
   }
 
-  initForm(){
+  initForm(){      
     this.userForm = this.formBuilder.group({
       username : ['', [Validators.required, Validators.minLength(4)]],
       email : ['', [Validators.required, Validators.email]],
@@ -31,9 +31,17 @@ export class SignUpPage implements OnInit {
     })
   }
 
-  async addPhoto() {
-    const libraryImage = await this.cameraService.openLibrary();
-    this.image = 'data:image/jpg;base64,' + libraryImage;
+  async addPhoto(source: string) {
+    if (source === 'camera') {
+      console.log('camera');
+      const cameraPhoto = await this.cameraService.openCamera();
+      this.image = 'data:image/jpg;base64,' + cameraPhoto;
+    } else {
+      console.log('library');
+      const libraryImage = await this.cameraService.openLibrary();
+      this.image = 'data:image/jpg;base64,' + libraryImage;
+    }
+    this.imageIsSend = true
   }
 
 }

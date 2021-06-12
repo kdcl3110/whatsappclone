@@ -3,7 +3,7 @@
 		<ion-buttons slot="start">
 			<ion-back-button text="" defaulthref="/tabs/tabs/chats"></ion-back-button>
 		</ion-buttons>
-		<ion-title><img src="" alt="" class="profil"> {{ userSend.displayName }}</ion-title>
+		<ion-title><img src="" alt="" class="profil"> {{ currentChat.nom }}</ion-title>
 		<ion-buttons slot="end">
 			<ion-button>
 				<ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
@@ -15,9 +15,10 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content #content>
-	<app-chat-item [chat]="chat" [userSend]="userSend"></app-chat-item>
+<ion-content>
+
 </ion-content>
+
 <ion-footer class="ion-no-border">
 	<ion-toolbar style="height: auto;">
 		<ion-buttons slot="start">
@@ -39,3 +40,4 @@
 		</ion-buttons>
 	</ion-toolbar>
 </ion-footer>
+

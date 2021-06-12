@@ -17,7 +17,19 @@
 <ion-content class="ion-padding">
   <ion-list>
     <ion-item lines="none">
-      <ion-item lines="none"><img src="" alt="" class="profil"></ion-item>
+      <ion-label lines="none" class="marg">
+        <div>
+          <img [src]="image" class="photo">
+        </div>
+        <ion-buttons>
+          <ion-button >
+            <ion-icon name="images-outline"></ion-icon>
+          </ion-button>
+          <ion-button >
+            <ion-icon name="camera-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-label>
       &nbsp;&nbsp;&nbsp;<ion-item><ion-input placeholder="Taper sujet du groupe" #sujet></ion-input></ion-item>
     </ion-item>
     <ion-item lines="none">

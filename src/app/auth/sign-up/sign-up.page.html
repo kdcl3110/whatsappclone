@@ -11,10 +11,10 @@
         <img [src]="image" class="photo">
       </div>
       <ion-buttons slot="">
-        <ion-button (click) ="addPhoto()">
+        <ion-button (click) ="addPhoto('library')">
           <ion-icon name="images-outline"></ion-icon>
         </ion-button>
-        <ion-button (click) ="addPhoto()">
+        <ion-button (click) ="addPhoto('camera')">
           <ion-icon name="camera-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -37,7 +37,7 @@
   
       <!-- Calling SignIn Api from AuthService -->
       <ion-button fill="solid" class="ion-margin-top" expand="block" [disabled]="userForm.invalid"
-        (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value)">
+        (click)="authService.SignUp(userEmail.value, userPwd.value, userName.value, image, imageIsSend)">
         Inscription</ion-button>
     </form>
   </ion-list>
