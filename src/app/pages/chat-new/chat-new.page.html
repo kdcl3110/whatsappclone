@@ -19,7 +19,9 @@
         [routerLink]="['/tabs/chat-detail', user.payload.doc.data().uid]"
         *ngIf="user.payload.doc.data().uid !== id" 
         routerdirection="forward">
-            <p><img src="" alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}</p>
+            <p><img 
+              src="{{ chatService.imageUser[user.payload.doc.data().uid] ? chatService.imageUser[user.payload.doc.data().uid] : '' }}" 
+              alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}</p>
       </ion-item>
     </div>
   </ion-list>

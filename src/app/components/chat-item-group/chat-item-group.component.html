@@ -1,0 +1,36 @@
+<ion-item-sliding 
+  class="message-item-sliding" 
+  *ngFor="let message of chatGroupService.currentChat.message; let i = index; let l = last"
+  #slidingItem (ionDrag)="messageDraged($event, slidingItem)">
+
+  <!-- User message -->
+  <ng-container *ngIf="message.sendUser !== user">
+    <ion-item lines="none" class="message-user"
+      [ngClass]="{'user-last-message': chatGroupService.currentChat.message[i+1]?.sendUser === user || l}">
+      <div class="message-container">
+        <span class="text" [innerHTML]="message.message"></span>
+        <!--<small class="time">{{message.dateEnv}}</small>-->
+      </div>
+    </ion-item>
+  </ng-container>
+
+  <!-- My message -->
+  <ng-container *ngIf="message.sendUser === user">
+    <ion-item lines="none" class="message-me">
+      <div class="message-container" slot="end">
+        <span class="text" [innerHTML]="message.message"></span>
+        <div class="time">
+          <!--<small>{{message.dateEnv }}</small>-->
+          <ion-icon color="primary" name="checkmark-done-outline"></ion-icon>
+        </div>
+      </div>
+    </ion-item>
+  </ng-container>
+
+  <!-- Reply slide -->
+  <ion-item-options side="end" class="no-border">
+    <ion-item-option disabled style="--background: var(--ion-item-background);">
+      <ion-icon slot="icon-only" name="arrow-undo-outline" color="primary"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>

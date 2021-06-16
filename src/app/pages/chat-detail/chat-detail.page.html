@@ -17,13 +17,31 @@
 
 <ion-content #content>
 	<app-chat-item [chat]="chat" [userSend]="userSend"></app-chat-item>
+	<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+		<ion-fab-button color="dark">
+			<ion-icon md="add-outline" ios="chevron-up-circle-outline"></ion-icon>
+		</ion-fab-button>
+		<ion-fab-list side="top">
+			<ion-fab-button color="light" (click)="addPhoto('library')">
+				<ion-icon name="camera-outline"></ion-icon>
+			</ion-fab-button>
+			
+			<ion-fab-button color="light">
+				<ion-icon name="headset-outline"></ion-icon>
+			</ion-fab-button>
+
+			<ion-fab-button color="light" (click)="addPhoto('camera')">
+				<ion-icon name="image-outline"></ion-icon>
+			</ion-fab-button>
+		</ion-fab-list>
+	</ion-fab>
 </ion-content>
 <ion-footer class="ion-no-border">
 	<ion-toolbar style="height: auto;">
 		<ion-buttons slot="start">
-			<ion-button>
+			<!-- <ion-button>
 				<ion-icon slot="icon-only" name="add-outline" color="primary"></ion-icon>
-			</ion-button>
+			</ion-button> -->
 		</ion-buttons>
 		<ion-textarea autogrow rows="1" [(ngModel)]="text" [placeholder]="'Taper message'" (ionInput)="onMessage($event)" #message></ion-textarea>
 		<ion-buttons slot="end">

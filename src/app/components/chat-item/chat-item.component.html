@@ -9,6 +9,7 @@
       [ngClass]="{'user-last-message': chatService.currentChat.message[i+1]?.sendUser === user || l}">
       <div class="message-container">
         <span class="text" [innerHTML]="message.message"></span>
+        
         <!--<small class="time">{{message.dateEnv}}</small>-->
       </div>
     </ion-item>

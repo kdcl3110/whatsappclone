@@ -7,29 +7,49 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { Subject } from 'rxjs';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService implements OnInit {
+  users: any
+  id: any
+  sendUser: any
+  chats: any[]
+  messageOfChat: any
+  currentChat: any
+  imageUser = []
 
-  users: any;
-  id: any;
-  sendUser: any;
-  chats: any[];
-  messageOfChat: any;
-  currentChat: any;
+  imageChat = []
 
   chatSubject = new Subject<any[]>();
 
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
-    public authService: AuthService
+    public authService: AuthService,
+    public afSG: AngularFireStorage,
   ) {
     this.getUsers();
     this.getChat();
   }
+
+  getImagesStorage(uid, url){
+    this.afSG.ref(url).getDownloadURL().subscribe(url =>{
+      //console.log(url)
+      this.imageUser[uid] = url
+      console.log(this.imageUser)
+    })
+  }
+
+  getImagemsg(ref){
+    this.afSG.ref(ref).getDownloadURL().subscribe(url =>{
+      this.imageChat[ref] = url
+    })
+  }
+
+
 
   emitChat() {
     this.chatSubject.next(this.chats.slice())
@@ -62,8 +82,15 @@ export class ChatService implements OnInit {
   getUsers() {
     this.afs.collection('users').snapshotChanges().subscribe(ref => {
       this.users = ref
-      console.log(ref)
       localStorage.setItem('users', JSON.stringify(ref))
+
+      ref.forEach(val =>{
+        let url = val.payload.doc.get('photoURL')
+        let uid = val.payload.doc.get('uid')
+        console.log(url)
+        if(url != null)
+          this.getImagesStorage(uid, url)
+      })
     })
   }
 

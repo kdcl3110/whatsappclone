@@ -32,7 +32,6 @@ export class AuthService {
     })
   }
 
-
   getCurrentUser() {
     let serr = JSON.parse(localStorage.getItem('user'));
     return serr.uid

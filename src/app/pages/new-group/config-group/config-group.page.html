@@ -22,10 +22,10 @@
           <img [src]="image" class="photo">
         </div>
         <ion-buttons>
-          <ion-button >
+          <ion-button (click) ="addPhoto('library')">
             <ion-icon name="images-outline"></ion-icon>
           </ion-button>
-          <ion-button >
+          <ion-button (click) ="addPhoto('camera')">
             <ion-icon name="camera-outline"></ion-icon>
           </ion-button>
         </ion-buttons>

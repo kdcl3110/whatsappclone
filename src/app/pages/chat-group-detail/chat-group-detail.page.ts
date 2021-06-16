@@ -1,3 +1,6 @@
+import { ChatGroupService } from './../../shared/services/group/chat-group.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { Sms } from './../../shared/services/chat';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { ActivatedRoute } from '@angular/router';
@@ -18,6 +21,8 @@ export class ChatGroupDetailPage implements OnInit {
   constructor(
     public router: ActivatedRoute,
     public chatService: ChatService,
+    public authService: AuthService,
+    public chatGroupService: ChatGroupService
   ) { }
 
   ngOnInit() {
@@ -27,7 +32,8 @@ export class ChatGroupDetailPage implements OnInit {
 
     this.chatSubcribe = this.chatService.chatSubject.subscribe(
       (chat) => {
-        this.currentChat = this.getCurentChat(this.chatId)
+        this.chatGroupService.getCurrentChat(this.chatId)
+        console.log(this.chatGroupService.currentChat)
       })
     this.chatService.emitChat()
   }
@@ -41,14 +47,19 @@ export class ChatGroupDetailPage implements OnInit {
     }
   }
 
-  getCurentChat(id){
-    for( let chat of this.chatService.chats)
-      if(id == chat.payload.doc.data().cid)
-        return chat.payload.doc.data()
-      
-    return ""
+  addChatMessage(msg) {
+    this.text = ''
+    let sms: Sms = {
+      message: msg,
+      sendUser: this.authService.getCurrentUser(),
+      dateEnv: new Date().toDateString(),
+      status: false,
+      asset: ""
+    }
+    this.chatGroupService.currentChat.dataModif = new Date().toDateString()
+    this.chatGroupService.currentChat.message.push(sms)
+    this.chatService.setChat(this.chatGroupService.currentChat.cid, this.chatGroupService.currentChat)
+    
+    this.isSend = false
   }
-
-  addChatMessage(msg) {}
-
 }

@@ -1,3 +1,4 @@
+import { ListChatComponent } from './../../components/list-chat/list-chat.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { ChatsPage } from './chats.page';
     IonicModule,
     ChatsPageRoutingModule
   ],
-  declarations: [ChatsPage]
+  declarations: [
+    ChatsPage,
+    ListChatComponent
+  ]
 })
 export class ChatsPageModule {}

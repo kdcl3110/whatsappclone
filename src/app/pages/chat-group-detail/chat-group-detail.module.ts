@@ -1,3 +1,4 @@
+import { ChatItemGroupComponent } from './../../components/chat-item-group/chat-item-group.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,9 @@ import { ChatGroupDetailPage } from './chat-group-detail.page';
     IonicModule,
     ChatGroupDetailPageRoutingModule
   ],
-  declarations: [ChatGroupDetailPage]
+  declarations: [
+    ChatGroupDetailPage,
+    ChatItemGroupComponent
+  ]
 })
 export class ChatGroupDetailPageModule {}

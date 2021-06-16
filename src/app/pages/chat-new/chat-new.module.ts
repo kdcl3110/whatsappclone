@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +16,8 @@ import { ChatNewPage } from './chat-new.page';
     IonicModule,
     ChatNewPageRoutingModule
   ],
-  declarations: [ChatNewPage],
+  declarations: [
+    ChatNewPage
+  ],
 })
 export class ChatNewPageModule { }

@@ -34,9 +34,17 @@ export class ChatItemComponent implements OnInit {
       (chat) => {
         this.chatService.findChat(this.userSend.uid);
         console.log(this.chatService.currentChat)
+        this.getImageStorage()
       })
     this.chatService.emitChat()
- 
+  }
+
+  getImageStorage(){
+    for(let img of this.chatService.currentChat.message){
+      if(img.asset != ''){
+        this.chatService.getImagemsg(img.asset)
+      }
+    }
   }
 
 }
