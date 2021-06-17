@@ -10,9 +10,9 @@ import { AngularFireStorage } from '@angular/fire/storage';
 @Injectable({
   providedIn: 'root'
 })
-export class ChatGroupService {
+export class ChatGroupService{
   listUserData: any[] = []
-  currentChat: any
+  currentChat: any=""
 
   constructor(
     public chatService: ChatService,
@@ -46,11 +46,11 @@ export class ChatGroupService {
     }
   }
 
-  addChatGroup(nom, photo, imgIsSend){
-    let urlImage
+  addChatGroup(nom, img, imgIsSend){
+    let urlImage=""
     if(imgIsSend){ 
       urlImage = 'Profils/' + (new Date()).getTime() + 'jpg'
-      this.uploadFireBase(urlImage, photo)
+      this.uploadFireBase(urlImage, img)
     }
 
     let list: any[] = [{ id: this.authService.getCurrentUser(), role: 'admin'}]
@@ -94,7 +94,6 @@ export class ChatGroupService {
       }
       this.chatService.setChat(res.id, newChat)
       this.router.navigate(['/tabs/chat-group-detail', res.id])
-      return res.id
     })
   }
 }

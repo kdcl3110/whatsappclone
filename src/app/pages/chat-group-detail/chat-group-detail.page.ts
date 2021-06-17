@@ -29,7 +29,7 @@ export class ChatGroupDetailPage implements OnInit {
     this.router.params.subscribe(res => {
       this.chatId = res.id
     })
-
+    
     this.chatSubcribe = this.chatService.chatSubject.subscribe(
       (chat) => {
         this.chatGroupService.getCurrentChat(this.chatId)

@@ -7,7 +7,7 @@
     <ion-title>N groupe</ion-title>
     <ion-buttons slot="end" 
       *ngIf="chatGroupService.listUserData.length !== 0 && sujet.value !== ''">
-      <ion-button (click)="chatGroupService.addChatGroup(sujet.value, null)">
+      <ion-button (click)="chatGroupService.addChatGroup(sujet.value, image, imageIsSend)">
         creer
       </ion-button>
     </ion-buttons>
