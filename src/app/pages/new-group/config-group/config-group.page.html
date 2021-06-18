@@ -42,7 +42,7 @@
     <ion-item lines="none">
       <ion-item lines="none" *ngFor="let user of chatGroupService.listUserData">
         <ion-label style="text-align: center;">
-          <p><img class="profil"></p>
+          <p><img src="{{ chatService.imageUser[userSend.uid] ? chatService.imageUser[userSend.uid] : ''}}" class="profil"></p>
           <p><small>{{ user.displayName }}</small></p>
         </ion-label>
       </ion-item>

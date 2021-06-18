@@ -20,8 +20,8 @@ export class ChatService implements OnInit {
   messageOfChat: any
   currentChat: any
   imageUser = []
-
   imageChat = []
+  chatProfil = []
 
   chatSubject = new Subject<any[]>();
 
@@ -49,6 +49,12 @@ export class ChatService implements OnInit {
     })
   }
 
+  getProfilChat(cid, url){
+    this.afSG.ref(url).getDownloadURL().subscribe(url =>{
+      this.chatProfil[cid] = url
+      console.log(this.chatProfil)
+    })
+  }
 
 
   emitChat() {
@@ -98,12 +104,14 @@ export class ChatService implements OnInit {
     this.afs.collection('chats').snapshotChanges().subscribe(ref => {
       this.chats = ref
       console.log(ref)
+      ref.forEach(val => {
+        let url = val.payload.doc.get('photo')
+        let cid = val.payload.doc.get('cid')
+        if(url != '')
+          this.getProfilChat(cid, url)
+      })
       this.emitChat()
     })
-  }
-
-  addMessageOfChat(message: Sms, uid) {
-
   }
 
   addChat(user, typ) {

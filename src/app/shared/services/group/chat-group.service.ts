@@ -49,7 +49,7 @@ export class ChatGroupService{
   addChatGroup(nom, img, imgIsSend){
     let urlImage=""
     if(imgIsSend){ 
-      urlImage = 'Profils/' + (new Date()).getTime() + 'jpg'
+      urlImage = 'Chats/' + (new Date()).getTime() + 'jpg'
       this.uploadFireBase(urlImage, img)
     }
 

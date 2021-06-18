@@ -12,7 +12,9 @@
         routerdirection="forward">
           <ion-checkbox (ionChange)="test($event)" mode="ios" [value]="user.payload.doc.data().uid" color="primary">
           </ion-checkbox>
-          &nbsp;&nbsp;<img src="" alt="" class="profil">&nbsp;&nbsp;{{ user.payload.doc.data().displayName}}
+          &nbsp;&nbsp;
+          <img [src]="chatService.imageUser[user.payload.doc.data().uid] ? chatService.imageUser[user.payload.doc.data().uid] : ''" alt="" class="profil">
+          &nbsp;&nbsp;{{ user.payload.doc.data().displayName}}
       </ion-item>
     </div>
   </ion-list>

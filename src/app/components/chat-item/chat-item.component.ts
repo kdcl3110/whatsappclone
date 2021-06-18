@@ -3,6 +3,7 @@ import { ChatService } from './../../shared/services/chat.service';
 import { AuthService } from './../../shared/services/auth.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { IonItemSliding } from '@ionic/angular';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-chat-item',
@@ -20,8 +21,13 @@ export class ChatItemComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public chatService: ChatService
+    public chatService: ChatService,
+    public sanitizer: DomSanitizer
   ) { }
+
+  geturl(url){
+    return this.sanitizer.bypassSecurityTrustUrl(url)
+  }
 
   messageDraged(event, slidingItem: IonItemSliding) {
     if (event.detail.ratio === 1) {

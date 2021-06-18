@@ -49,7 +49,7 @@ export class ListChatComponent implements OnInit {
       } else if(chat.payload.doc.data().type == 'goup'){ 
         if( this.findChatUser(chat, this.authService.getCurrentUser())){
           this.mesChats.push(chat)
-          if(chat.payload.doc.data().photo != null)
+          if(chat.payload.doc.data().photo != "")
             this.getImagesStorage(chat.payload.doc.data().cid, chat.payload.doc.data().photo)
         }
       } 
@@ -76,11 +76,11 @@ export class ListChatComponent implements OnInit {
     }
   }
 
-  getChatGroup(){
-    for(let chat of this.chatService.chats){
-      if(chat.chat.payload.doc.data().users.indexOf(this.authService.getCurrentUser()) > -1){
+  // getChatGroup(){
+  //   for(let chat of this.chatService.chats){
+  //     if(chat.chat.payload.doc.data().users.indexOf(this.authService.getCurrentUser()) > -1){
         
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 }

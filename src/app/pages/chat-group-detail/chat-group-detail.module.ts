@@ -8,6 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ChatGroupDetailPageRoutingModule } from './chat-group-detail-routing.module';
 
 import { ChatGroupDetailPage } from './chat-group-detail.page';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { ChatGroupDetailPage } from './chat-group-detail.page';
   ],
   declarations: [
     ChatGroupDetailPage,
-    ChatItemGroupComponent
+    ChatItemGroupComponent,
+    PopoverComponent
   ]
 })
 export class ChatGroupDetailPageModule {}

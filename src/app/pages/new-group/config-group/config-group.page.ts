@@ -1,6 +1,7 @@
 import { CameraService } from './../../../shared/services/camera/camera.service';
 import { ChatGroupService } from './../../../shared/services/group/chat-group.service';
 import { Component, OnInit } from '@angular/core';
+import { ChatService } from 'src/app/shared/services/chat.service';
 
 @Component({
   selector: 'app-config-group',
@@ -14,7 +15,8 @@ export class ConfigGroupPage implements OnInit {
   
   constructor(
     public chatGroupService: ChatGroupService,
-    public cameraService: CameraService
+    public cameraService: CameraService,
+    public chatService: ChatService
   ) { }
 
   ngOnInit() {

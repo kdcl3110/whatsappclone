@@ -5,7 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { CameraService } from 'src/app/shared/services/camera/camera.service';
-import { AlertController, ModalController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
 
 @Component({
   selector: 'app-chat-detail',
@@ -32,7 +33,8 @@ export class ChatDetailPage implements OnInit {
     public chatService: ChatService,
     public authService: AuthService,
     public cameraService: CameraService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    public popCtrl: PopoverController
   ) { }
 
 
@@ -57,6 +59,24 @@ export class ChatDetailPage implements OnInit {
     } else {
       this.isSend = false;
     }
+  }
+
+  async openPopOver(ev){
+    const popover = await this.popCtrl.create({
+      component: PopoverComponent,
+      event: ev
+    })
+    
+    await popover.present()
+    
+    const {data} = await popover.onDidDismiss()
+    
+    if(data.fromPopover == 'camera')
+      this.addPhoto('camera')
+    else if(data.fromPopover == 'library')
+      this.addPhoto('library')
+
+    console.log(data)
   }
 
   addChatMessage(msg) {
