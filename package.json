@@ -31,6 +31,7 @@
     "bootstrap": "^5.0.1",
     "cordova-plugin-camera": "^5.0.2",
     "firebase": "^8.6.3",
+    "ionic4-emoji-picker": "^0.0.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

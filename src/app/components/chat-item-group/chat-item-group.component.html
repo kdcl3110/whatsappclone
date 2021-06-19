@@ -8,6 +8,7 @@
     <ion-item lines="none" class="message-user"
       [ngClass]="{'user-last-message': chatGroupService.currentChat.message[i+1]?.sendUser === user || l}">
       <div class="message-container">
+        <small><b>{{ chatService.getUser(message.sendUser).nom }}~</b><br/></small>
         <p *ngIf="message.asset != ''">
           <img [src]="geturl(chatService.imageChat[message.asset])">
         </p>

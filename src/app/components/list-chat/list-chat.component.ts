@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ThrowStmt } from '@angular/compiler';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-chat',
@@ -13,8 +14,9 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class ListChatComponent implements OnInit {
   
   @Input() chats: any[]
-  mesChats: any[] = []
+  mesChats = []
   cahtImage = []
+  chatSubcribe: Subscription;
 
   constructor(
     public chatService: ChatService,
@@ -24,7 +26,11 @@ export class ListChatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getNameUserSend()
+    this.chatSubcribe = this.chatService.chatSubject.subscribe(
+      (chat) => {
+        this.getNameUserSend()
+      })
+    this.chatService.emitChat()
   }
 
   geturl(url){
@@ -41,6 +47,7 @@ export class ListChatComponent implements OnInit {
 
   getNameUserSend(){
     //console.log(this.chatService.chats)
+    this.mesChats = []
     for(let chat of this.chatService.chats){
       if(chat.payload.doc.data().type == 'unique'){
         if(chat.payload.doc.data().users.indexOf(this.authService.getCurrentUser()) > -1){

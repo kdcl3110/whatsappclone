@@ -3,16 +3,20 @@
 		<ion-buttons slot="start">
 			<ion-back-button text="" defaulthref="/tabs/tabs/chats"></ion-back-button>
 		</ion-buttons>
-		<ion-title>
-			<img 
-				[src]="chatService.chatProfil[chatGroupService.currentChat.cid] ? chatService.chatProfil[chatGroupService.currentChat.cid] : ''"
-				alt="" class="profil">
-			{{ chatGroupService.currentChat.nom }}
+		<ion-title button (click)="openModal()">
+			<ion-row>
+				<ion-col size="4">
+					<img 
+					[src]="chatService.chatProfil[chatGroupService.currentChat.cid] ? chatService.chatProfil[chatGroupService.currentChat.cid] : ''"
+					alt="" class="profil">	
+				</ion-col>
+				<ion-col size="6">
+					{{ chatGroupService.currentChat.nom }}<br/>
+					<ion-note><smal><small><small>informations du groupe</small></small></smal></ion-note>
+				</ion-col>
+			</ion-row>
 		</ion-title>
 		<ion-buttons slot="end">
-			<ion-button>
-				<ion-icon slot="icon-only" name="videocam-outline"></ion-icon>
-			</ion-button>
 			<ion-button>
 				<ion-icon slot="icon-only" name="call-outline"></ion-icon>
 			</ion-button>

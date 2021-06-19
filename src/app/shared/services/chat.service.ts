@@ -15,10 +15,10 @@ import { AngularFireStorage } from '@angular/fire/storage';
 export class ChatService implements OnInit {
   users: any
   id: any
-  sendUser: any
-  chats: any[]
+  sendUser: any = ""
+  chats: any[] = []
   messageOfChat: any
-  currentChat: any
+  currentChat: any = ""
   imageUser = []
   imageChat = []
   chatProfil = []
@@ -33,6 +33,15 @@ export class ChatService implements OnInit {
   ) {
     this.getUsers();
     this.getChat();
+  }
+
+  getUser(uid){
+    for(let user of this.users){
+      if(user.payload.doc.data().uid == uid){
+        return user.payload.doc.data()
+      }
+    }
+    return null
   }
 
   getImagesStorage(uid, url){
@@ -67,7 +76,7 @@ export class ChatService implements OnInit {
   }
 
   getCurrentChat(userSend) {
-    this.findChat(userSend.uid);
+    this.findChat(userSend.uid)
     if (this.currentChat == "") {
       this.addChat(userSend, 'unique')
     }
@@ -139,6 +148,16 @@ export class ChatService implements OnInit {
     }).catch(res => {
       console.log(res)
     })
+  }
+
+  getCountMessage(chat){
+    let count = 0
+    for(let message of chat.payload.doc.data().message){
+      if(message.status == false){
+        count++
+      }
+    }
+    return count
   }
 
   setChat(cid, chat) {

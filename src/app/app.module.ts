@@ -15,6 +15,7 @@ import { AngularFireStorageModule } from "@angular/fire/storage";
 import { environment } from '../environments/environment';
 import { AuthService } from "./shared/services/auth.service";
 import { Camera } from '@ionic-native/camera/ngx';
+import { Ionic4EmojiPickerModule } from 'ionic4-emoji-picker'
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,7 +28,8 @@ import { Camera } from '@ionic-native/camera/ngx';
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFirestoreModule,
-    FormsModule
+    FormsModule,
+    Ionic4EmojiPickerModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

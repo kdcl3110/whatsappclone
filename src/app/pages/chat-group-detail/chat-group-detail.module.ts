@@ -9,6 +9,7 @@ import { ChatGroupDetailPageRoutingModule } from './chat-group-detail-routing.mo
 
 import { ChatGroupDetailPage } from './chat-group-detail.page';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { ParamGroupComponent } from '../../components/param-group/param-group.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { PopoverComponent } from 'src/app/components/popover/popover.component';
   declarations: [
     ChatGroupDetailPage,
     ChatItemGroupComponent,
-    PopoverComponent
+    PopoverComponent,
+    ParamGroupComponent
   ]
 })
 export class ChatGroupDetailPageModule {}

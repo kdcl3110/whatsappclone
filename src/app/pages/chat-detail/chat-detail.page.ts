@@ -19,11 +19,12 @@ export class ChatDetailPage implements OnInit {
   userSend: any
   currentChat: any
   isSend = false
-  text: any
+  text: any = ""
   chat: any
   chatSubcribe: Subscription
   image: any
   imageIsSend = false
+  showEmojiPicker:boolean = false
 
   scrolling: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -37,6 +38,14 @@ export class ChatDetailPage implements OnInit {
     public popCtrl: PopoverController
   ) { }
 
+  addEmoji(event) { 
+    this.text = this.text + event.data; //Concatinate the emoji with text
+    this.isSend = true;
+  }
+
+  showemoji(){
+    this.showEmojiPicker = !this.showEmojiPicker
+  }
 
   ngOnInit() {
     this.router.params.subscribe(res => {
@@ -56,6 +65,7 @@ export class ChatDetailPage implements OnInit {
     let val = event.target.value;
     if (val && val.trim() != "") {
       this.isSend = true;
+      this.showEmojiPicker = false                                                                                                      
     } else {
       this.isSend = false;
     }
@@ -94,6 +104,7 @@ export class ChatDetailPage implements OnInit {
     console.log(this.currentChat)
     
     this.isSend = false
+    this.showEmojiPicker = false
   }
 
   addChatPhoto(msg, photo) {

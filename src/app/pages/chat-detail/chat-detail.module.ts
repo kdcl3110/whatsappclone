@@ -9,13 +9,15 @@ import { ChatDetailPageRoutingModule } from './chat-detail-routing.module';
 
 import { ChatDetailPage } from './chat-detail.page';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { Ionic4EmojiPickerModule } from 'ionic4-emoji-picker'
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ChatDetailPageRoutingModule
+    ChatDetailPageRoutingModule,
+    Ionic4EmojiPickerModule
   ],
   declarations: [
     ChatDetailPage,

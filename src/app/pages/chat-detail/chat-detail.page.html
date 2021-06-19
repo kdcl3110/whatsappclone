@@ -20,10 +20,11 @@
 </ion-header>
 
 <ion-content #content>
-	<app-chat-item [chat]="chat" [userSend]="userSend"></app-chat-item>
+	<app-chat-item [chat]="chat" [userSend]="userSend"></app-chat-item>  
 </ion-content>
 <ion-footer class="ion-no-border">
 	<ion-toolbar style="height: auto;">
+		<emoji-mart title="Pick your emoji…" emoji="point_up"></emoji-mart>
 		<ion-buttons slot="start">
 			<ion-button (click)="openPopOver($event)">
 				<ion-icon slot="icon-only" name="add-outline" color="primary"></ion-icon>
@@ -31,8 +32,8 @@
 		</ion-buttons>
 		<ion-textarea autogrow rows="1" [(ngModel)]="text" [placeholder]="'Taper message'" (ionInput)="onMessage($event)" #message></ion-textarea>
 		<ion-buttons slot="end">
-			<ion-button *ngIf="!isSend">
-				<ion-icon slot="icon-only" name="happy-outline" color="primary"></ion-icon>
+			<ion-button (click)="showemoji()">
+				<ion-icon slot="icon-only" [name]="showEmojiPicker?'keypad-outline':'happy-outline'" color="primary"></ion-icon>
 			</ion-button>
 			<ion-button *ngIf="!isSend">
 				<ion-icon slot="icon-only" name="mic-outline" color="primary"></ion-icon>
@@ -42,4 +43,7 @@
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
+	<div class="emojiContainer" [style.height]="showEmojiPicker?'300px':'0px'"> <!--Show/Hide emoji picker. Don't use *ngIf because the component will be created again and again and cause performance issue-->
+		<emoji-picker (onEmojiSelect)="addEmoji($event)"></emoji-picker>
+	</div>
 </ion-footer>

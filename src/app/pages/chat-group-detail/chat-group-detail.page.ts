@@ -5,9 +5,10 @@ import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { AlertController, PopoverController } from '@ionic/angular';
+import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { CameraService } from 'src/app/shared/services/camera/camera.service';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { ParamGroupComponent } from 'src/app/components/param-group/param-group.component';
 
 @Component({
   selector: 'app-chat-group-detail',
@@ -30,7 +31,8 @@ export class ChatGroupDetailPage implements OnInit {
     public chatGroupService: ChatGroupService,
     public cameraService: CameraService,
     public alertController: AlertController,
-    public popCtrl: PopoverController
+    public popCtrl: PopoverController,
+    public modallCtrl: ModalController
   ) { }
 
   ngOnInit() {
@@ -44,6 +46,16 @@ export class ChatGroupDetailPage implements OnInit {
         console.log(this.chatGroupService.currentChat)
       })
     this.chatService.emitChat()
+  }
+
+  async openModal(){
+    const modal = await this.modallCtrl.create({
+      component: ParamGroupComponent,
+      componentProps:{
+        'group': this.chatGroupService.currentChat
+      }
+    })
+    modal.present()    
   }
 
   async openPopOver(ev){
@@ -103,6 +115,11 @@ export class ChatGroupDetailPage implements OnInit {
 
       ]
     });
+
+    await alert.present();
+
+    const { role } = await alert.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
   }
 
   addChatPhoto(msg, photo) {

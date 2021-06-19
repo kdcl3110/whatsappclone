@@ -3,6 +3,7 @@ import { AuthService } from './../../shared/services/auth.service';
 import { ChatGroupService } from './../../shared/services/group/chat-group.service';
 import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ChatService } from 'src/app/shared/services/chat.service';
 
 @Component({
   selector: 'app-chat-item-group',
@@ -15,7 +16,8 @@ export class ChatItemGroupComponent implements OnInit {
   constructor(
     public chatGroupService: ChatGroupService,
     public authService: AuthService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    public chatService: ChatService
   ) { }
 
   messageDraged(event, slidingItem: IonItemSliding) {
