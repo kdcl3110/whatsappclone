@@ -1,7 +1,9 @@
 <ion-header>
 	<ion-toolbar>
 		<ion-buttons slot="start">
-			<ion-back-button text="" defaulthref="/tabs/tabs/chats"></ion-back-button>
+			<ion-button text="" routerLink="/tabs/tabs/chats">
+				<ion-icon name="arrow-back-outline"></ion-icon>
+			</ion-button>
 		</ion-buttons>
 		<ion-title button (click)="openModal()">
 			<ion-row>
@@ -11,8 +13,10 @@
 					alt="" class="profil">	
 				</ion-col>
 				<ion-col size="6">
-					{{ chatGroupService.currentChat.nom }}<br/>
-					<ion-note><smal><small><small>informations du groupe</small></small></smal></ion-note>
+					<div style="display: flex; flex-direction:column;">
+						<span [innerHTML]="chatGroupService.currentChat.nom"></span>
+						<ion-note style="margin-top: 0;"><smal><small><small>informations du groupe</small></small></smal></ion-note>
+					</div>
 				</ion-col>
 			</ion-row>
 		</ion-title>
@@ -24,12 +28,12 @@
 	</ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content #content style="--background: url(../../../assets/images/{{imageBg}}.svg);background-color: {{imageBg ? 'transparent' : 'var(--ion-background-color, #fff)' }};"	>
 	<app-chat-item-group></app-chat-item-group>
 </ion-content>
 
 <ion-footer class="ion-no-border">
-	<ion-toolbar style="height: auto;">
+	<ion-toolbar style="height: auto;" *ngIf="chatGroupService.currentChat.lock == false || current.role == 'admin'">
 		<ion-buttons slot="start">
 			<ion-button (click)="openPopOver($event)">
 				<ion-icon slot="icon-only" name="add-outline" color="primary"></ion-icon>
@@ -37,8 +41,8 @@
 		</ion-buttons>
 		<ion-textarea autogrow rows="1" [(ngModel)]="text" [placeholder]="'Taper message'" (ionInput)="onMessage($event)" #message></ion-textarea>
 		<ion-buttons slot="end">
-			<ion-button *ngIf="!isSend">
-				<ion-icon slot="icon-only" name="camera-outline" color="primary"></ion-icon>
+			<ion-button (click)="showemoji()">
+				<ion-icon slot="icon-only" [name]="showEmojiPicker?'keypad-outline':'happy-outline'" color="primary"></ion-icon>
 			</ion-button>
 			<ion-button *ngIf="!isSend">
 				<ion-icon slot="icon-only" name="mic-outline" color="primary"></ion-icon>
@@ -48,5 +52,12 @@
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
+	<ion-toolbar class="ion-padding-left" *ngIf="chatGroupService.currentChat.lock == true && current.role != 'admin'"> 
+		<ion-note>seule les admin peuvent communiquer</ion-note>
+	</ion-toolbar>
+	
+	<div class="emojiContainer" [style.height]="showEmojiPicker?'300px':'0px'"> <!--Show/Hide emoji picker. Don't use *ngIf because the component will be created again and again and cause performance issue-->
+		<emoji-picker (onEmojiSelect)="addEmoji($event)"></emoji-picker>
+	</div>
 </ion-footer>
 

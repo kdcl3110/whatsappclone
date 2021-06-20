@@ -18,7 +18,7 @@ export class ChatService implements OnInit {
   sendUser: any = ""
   chats: any[] = []
   messageOfChat: any
-  currentChat: any = ""
+  currentChat: any = []
   imageUser = []
   imageChat = []
   chatProfil = []
@@ -131,7 +131,8 @@ export class ChatService implements OnInit {
       photo: user.photoURL,
       message: [],
       type: typ,
-      dataModif: (new Date()).toDateString()
+      lock: false,
+      dataModif: new Date()
     }
     this.afs.collection('chats').add(chat).then(res => {
       let newChat: Chat = {
@@ -141,7 +142,8 @@ export class ChatService implements OnInit {
         photo: user.photoURL,
         message: [],
         type: typ,
-        dataModif: (new Date()).toDateString()
+        lock: false,
+        dataModif: new Date()
       }
 
       this.setChat(res.id, newChat)

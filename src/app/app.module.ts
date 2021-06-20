@@ -17,10 +17,28 @@ import { AuthService } from "./shared/services/auth.service";
 import { Camera } from '@ionic-native/camera/ngx';
 import { Ionic4EmojiPickerModule } from 'ionic4-emoji-picker'
 
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { PopoverComponent } from './components/popover/popover.component';
+import { LanguePropsComponent } from './components/langue-props/langue-props.component';
+
+export function createTranslateLoader(http: HttpClient){
+  return new TranslateHttpLoader(http, '../assets/i18n/', '.json')
+}
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LanguePropsComponent],
   entryComponents: [],
   imports: [
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
@@ -29,7 +47,7 @@ import { Ionic4EmojiPickerModule } from 'ionic4-emoji-picker'
     AngularFireStorageModule,
     AngularFirestoreModule,
     FormsModule,
-    Ionic4EmojiPickerModule
+    Ionic4EmojiPickerModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

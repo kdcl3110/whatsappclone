@@ -12,7 +12,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class ChatGroupService{
   listUserData: any[] = []
-  currentChat: any=""
+  currentChat: any= []
 
   constructor(
     public chatService: ChatService,
@@ -36,6 +36,33 @@ export class ChatGroupService{
 
   uploadFireBase(urlImage: any, image){
     this.afSG.ref(urlImage).putString(image, 'data_url')
+  }
+
+  updatePhoto(cid, image){
+    let url = 'Chats/' + (new Date()).getTime() + 'jpg'
+    this.uploadFireBase(url, image)
+    
+    this.afs.doc(`chats/${cid}`).update(
+      {photo : url}
+    )
+  }
+
+  updateUserChat(cid, usrs){
+    this.afs.doc(`chats/${cid}`).update(
+      {users : usrs}
+    )
+  }
+
+  updateDescChat(cid, desc){
+    this.afs.doc(`chats/${cid}`).update(
+      {nom : desc}
+    )
+  }
+
+  lockConversation(cid, islock){
+    this.afs.doc(`chats/${cid}`).update(
+      {lock : islock}
+    )
   }
 
   getCurrentChat(cid) {
@@ -67,12 +94,13 @@ export class ChatGroupService{
         {
           message: 'nouveau groupe', 
           sendUser: this.authService.getCurrentUser(),
-          dateEnv: new Date().toDateString(),
+          dateEnv: new Date(),
           status: false,
           asset: ''
         }],
+      lock: false,
       type: "goup", 
-      dataModif: new Date().toDateString()
+      dataModif: new Date()
     }
     
     this.afs.collection('chats').add(chat).then(res => {
@@ -85,12 +113,13 @@ export class ChatGroupService{
           {
             message: 'nouveau groupe', 
             sendUser: this.authService.getCurrentUser(),
-            dateEnv: new Date().toDateString(),
+            dateEnv: new Date(),
             status: false,
             asset: ''
           }],
         type: "goup",
-        dataModif: new Date().toDateString()
+        lock: false,
+        dataModif: new Date()
       }
       this.chatService.setChat(res.id, newChat)
       this.router.navigate(['/tabs/chat-group-detail', res.id])

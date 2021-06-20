@@ -1,11 +1,11 @@
 import { AuthService } from './../../shared/services/auth.service';
 import { Sms } from './../../shared/services/chat';
 import { ChatService } from 'src/app/shared/services/chat.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, of, Subscription } from 'rxjs';
 import { CameraService } from 'src/app/shared/services/camera/camera.service';
-import { AlertController, ModalController, PopoverController } from '@ionic/angular';
+import { AlertController, IonContent, ModalController, PopoverController } from '@ionic/angular';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { PopoverComponent } from 'src/app/components/popover/popover.component';
   styleUrls: ['./chat-detail.page.scss'],
 })
 export class ChatDetailPage implements OnInit {
-
+  @ViewChild(IonContent, {read: IonContent, static: false }) content: IonContent;
   userId: any
   userSend: any
   currentChat: any
@@ -25,6 +25,7 @@ export class ChatDetailPage implements OnInit {
   image: any
   imageIsSend = false
   showEmojiPicker:boolean = false
+  imageBg = 'chat-bg'
 
   scrolling: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
@@ -59,6 +60,15 @@ export class ChatDetailPage implements OnInit {
       }
     }
     this.chatService.getCurrentChat(this.userSend);
+    this.ScrollToBottom()
+    console.log(this.content)
+  }
+
+  ScrollToBottom() {
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+      console.log(this.content)
+    }, 1000);
   }
 
   onMessage(event) {
@@ -94,11 +104,11 @@ export class ChatDetailPage implements OnInit {
     let sms: Sms = {
       message: msg,
       sendUser: this.authService.getCurrentUser(),
-      dateEnv: new Date().toDateString(),
+      dateEnv: new Date(),
       status: false,
       asset: ""
     }
-    this.chatService.currentChat.dataModif = new Date().toDateString()
+    this.chatService.currentChat.dataModif = new Date()
     this.chatService.currentChat.message.push(sms)
     this.chatService.setChat(this.chatService.currentChat.cid, this.chatService.currentChat)
     console.log(this.currentChat)
@@ -115,11 +125,11 @@ export class ChatDetailPage implements OnInit {
     let sms: Sms = {
       message: msg,
       sendUser: this.authService.getCurrentUser(),
-      dateEnv: new Date().toDateString(),
+      dateEnv: new Date(),
       status: false,
       asset: url
     }
-    this.chatService.currentChat.dataModif = new Date().toDateString()
+    this.chatService.currentChat.dataModif = new Date()
     this.chatService.currentChat.message.push(sms)
     this.chatService.setChat(this.chatService.currentChat.cid, this.chatService.currentChat)
     console.log(this.currentChat)

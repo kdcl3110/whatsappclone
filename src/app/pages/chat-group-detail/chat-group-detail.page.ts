@@ -4,7 +4,7 @@ import { Sms } from './../../shared/services/chat';
 import { Subscription } from 'rxjs';
 import { ChatService } from 'src/app/shared/services/chat.service';
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertController, ModalController, PopoverController } from '@ionic/angular';
 import { CameraService } from 'src/app/shared/services/camera/camera.service';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
@@ -23,7 +23,12 @@ export class ChatGroupDetailPage implements OnInit {
   chatSubcribe: Subscription
   image: any
   imageIsSend = false
-
+  current =""
+  imageBg = 'chat-bg'
+  showEmojiPicker:boolean = false
+  
+  @ViewChild('content') private content: any;
+  
   constructor(
     public router: ActivatedRoute,
     public chatService: ChatService,
@@ -35,27 +40,53 @@ export class ChatGroupDetailPage implements OnInit {
     public modallCtrl: ModalController
   ) { }
 
+  addEmoji(event) { 
+    this.text = this.text + event.data; //Concatinate the emoji with text
+    this.isSend = true;
+  }
+
+  showemoji(){
+    this.showEmojiPicker = !this.showEmojiPicker
+  }
+
   ngOnInit() {
+    //this.scrollToBottomOnInit()
     this.router.params.subscribe(res => {
       this.chatId = res.id
     })
-    
     this.chatSubcribe = this.chatService.chatSubject.subscribe(
       (chat) => {
         this.chatGroupService.getCurrentChat(this.chatId)
         console.log(this.chatGroupService.currentChat)
+        setTimeout(()=>{
+          this.findCurrentUser()
+        }, 1000)
       })
     this.chatService.emitChat()
+  }
+  scrollToBottomOnInit() {
+    this.content.scrollToBottom(300);
+  }
+  
+  findCurrentUser(){
+    for(let usr of this.chatGroupService.currentChat.users){
+      if(usr.id == this.authService.getCurrentUser()){
+        this.current = usr 
+      }
+    }
   }
 
   async openModal(){
     const modal = await this.modallCtrl.create({
       component: ParamGroupComponent,
       componentProps:{
-        'group': this.chatGroupService.currentChat
+        'group': this.chatGroupService.currentChat,
+        'chatId': this.chatGroupService.currentChat.cid
       }
     })
-    modal.present()    
+    modal.present()
+    const { role } = await modal.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role); 
   }
 
   async openPopOver(ev){
@@ -130,13 +161,13 @@ export class ChatGroupDetailPage implements OnInit {
     let sms: Sms = {
       message: msg,
       sendUser: this.authService.getCurrentUser(),
-      dateEnv: new Date().toDateString(),
+      dateEnv: new Date(),
       status: false,
       asset: url
     }
-    this.chatGroupService.currentChat.dataModif = new Date().toDateString()
+    this.chatGroupService.currentChat.dataModif = new Date()
     this.chatGroupService.currentChat.message.push(sms)
-    this.chatService.setChat(this.chatService.currentChat.cid, this.chatService.currentChat)
+    this.chatService.setChat(this.chatGroupService.currentChat.cid, this.chatGroupService.currentChat)
     console.log(this.currentChat)
     
     this.isSend = false
@@ -146,6 +177,7 @@ export class ChatGroupDetailPage implements OnInit {
     let val = event.target.value;
     if (val && val.trim() != "") {
       this.isSend = true;
+      this.showEmojiPicker = false 
     } else {
       this.isSend = false;
     }
@@ -156,14 +188,14 @@ export class ChatGroupDetailPage implements OnInit {
     let sms: Sms = {
       message: msg,
       sendUser: this.authService.getCurrentUser(),
-      dateEnv: new Date().toDateString(),
+      dateEnv: new Date(),
       status: false,
       asset: ""
     }
-    this.chatGroupService.currentChat.dataModif = new Date().toDateString()
+    this.chatGroupService.currentChat.dataModif = new Date()
     this.chatGroupService.currentChat.message.push(sms)
     this.chatService.setChat(this.chatGroupService.currentChat.cid, this.chatGroupService.currentChat)
-    
+    this.showEmojiPicker = false
     this.isSend = false
   }
 }

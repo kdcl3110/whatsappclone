@@ -1,0 +1,25 @@
+{
+    "CHATS":{
+        "title": "Chats",
+        "change": "change",
+        "group": "new group"
+    },
+    "TABS":{
+        "status": "status",
+        "camera": "camera",
+        "chats": "chats",
+        "setting": "settings"
+    },
+    "NEWCHAT":{
+        "users": "Users"
+    },
+    "NEWGROUP":{
+        "add": "Add members"
+    },
+    "SETTINGS":{
+        "title": "Settings",
+        "langue": "change language",
+        "theme": "toggle color theme",
+        "logout": "logout"
+    }
+}

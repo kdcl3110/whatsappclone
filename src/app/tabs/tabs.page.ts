@@ -8,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
   tabs: any[] = [
-    { id: 'status', badge: 0, icon: 'disc-outline' },
-    { id: 'camera', badge: 0, icon: 'camera-outline', button: true },
-    { id: 'chats', badge: 0, icon: 'chatbubbles-outline' },
-    { id: 'settings', badge: 0, icon: 'cog-outline' },
+    { id: 'status', name:'TABS.status', badge: 0, icon: 'disc-outline' },
+    { id: 'camera', name:'TABS.camera', badge: 0, icon: 'camera-outline', button: true },
+    { id: 'chats', name:'TABS.chats', badge: 0, icon: 'chatbubbles-outline' },
+    { id: 'settings', name:'TABS.setting', badge: 0, icon: 'cog-outline' },
   ];
 
   constructor(private chatService: ChatService) {

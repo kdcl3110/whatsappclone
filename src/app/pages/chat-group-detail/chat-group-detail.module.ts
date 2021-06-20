@@ -10,13 +10,15 @@ import { ChatGroupDetailPageRoutingModule } from './chat-group-detail-routing.mo
 import { ChatGroupDetailPage } from './chat-group-detail.page';
 import { PopoverComponent } from 'src/app/components/popover/popover.component';
 import { ParamGroupComponent } from '../../components/param-group/param-group.component';
+import { Ionic4EmojiPickerModule } from 'ionic4-emoji-picker';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ChatGroupDetailPageRoutingModule
+    ChatGroupDetailPageRoutingModule,
+    Ionic4EmojiPickerModule
   ],
   declarations: [
     ChatGroupDetailPage,

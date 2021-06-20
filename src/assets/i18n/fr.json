@@ -1,0 +1,25 @@
+{
+    "CHATS":{
+        "title": "Discussions",
+        "change": "modifier",
+        "group": "Nouveau groupe"
+    },
+    "TABS":{
+        "status": "status",
+        "camera": "camera",
+        "chats": "discussions",
+        "setting": "paramètres"
+    },
+    "NEWCHAT":{
+        "users": "Utilisateurs"
+    },
+    "NEWGROUP":{
+        "add": "Ajoutes des membres"
+    },
+    "SETTINGS":{
+        "title": "Paramètre",
+        "theme": "changer le thème de couleur",
+        "langue": "changer la langue",
+        "logout": "deconnexion"
+    }
+}

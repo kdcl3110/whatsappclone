@@ -8,13 +8,99 @@
 		<ion-title button (click)="openModal()">
 			configuration
 		</ion-title>
-		<ion-buttons slot="end">
+		<ion-buttons slot="end" *ngIf="findCurrentUser().role == 'admin'">
+			<ion-button (click)="edit()">
+				<ion-icon slot="icon-only" name="pencil" ></ion-icon>
+			</ion-button>
 			<ion-button>
 				<ion-icon slot="icon-only" name="person-add-outline"></ion-icon>
 			</ion-button>
 		</ion-buttons>
 	</ion-toolbar>
 </ion-header>
-<ion-content>
-  
+<ion-content class="ion-padding">
+  	<ion-list>
+		<ion-item lines="none">
+			
+			<!-- <h2 *ngIf="update">{{ description }}</h2> -->
+		</ion-item>
+		<ion-item lines="none">
+			<div style="margin: auto; text-align: center;">
+			  <h2 [innerHtml]="group.nom"></h2>
+			  <img [src]="image" class="photo">
+			  <ion-buttons slot="">
+				<ion-button (click) ="addPhoto('library')">
+				  <ion-icon name="images-outline"></ion-icon>
+				</ion-button>
+				<ion-button (click) ="addPhoto('camera')">
+				  <ion-icon name="camera-outline"></ion-icon>
+				</ion-button>
+			  </ion-buttons>
+			</div>
+		</ion-item>
+		<ion-item class="ion-marggin-top" *ngIf="onEdit" >
+			<ion-input placeholder="nouvelle description" [(ngModel)]="description"></ion-input>
+			<ion-button button (click)="edit()" color="danger"><ion-icon name="close"></ion-icon></ion-button>
+			<ion-button button (click)="updateDesc()"><ion-icon name="checkmark"></ion-icon></ion-button>
+		</ion-item>
+ 	</ion-list>
+	<ion-item lines="none">
+		<ion-label>
+			<ion-row>
+				<ion-col size="10"><ion-note>Membres du groupe</ion-note></ion-col>
+				<ion-col size="2">
+					<ion-buttons *ngIf="findCurrentUser().role == 'admin'" >
+						<ion-button color="danger" (click)="lockCovers()" *ngIf="group.lock == false">
+							<ion-icon name="lock-closed-outline"></ion-icon>
+						</ion-button>
+						<ion-button color="success" (click)="unlockCovers()" *ngIf="group.lock == true">
+							<ion-icon name="lock-open-outline"></ion-icon>
+						</ion-button>
+					</ion-buttons>
+				</ion-col>
+			</ion-row>
+		</ion-label>
+	</ion-item>
+	<ion-list>
+		<ion-item-sliding *ngFor="let item of membres">
+			<ion-item>
+				<ion-label>
+					<ion-row>
+						<ion-col size="3">
+						<img class="profil"
+							[src] = "chatService.imageUser[item.uid] ? chatService.imageUser[item.uid] :''"
+							alt=""
+						>
+						</ion-col>
+						<ion-col size="9">
+							<ion-label *ngIf="item.uid == authService.getCurrentUser()">
+								<h3> vous</h3>
+								<span class="admin" *ngIf="item.role == 'admin'" ><ion-note>Admin du groupe</ion-note></span>
+							</ion-label>
+							<ion-label *ngIf="item.uid != authService.getCurrentUser()">
+								<h3 [innerHtml]="item.displayName"></h3>
+								<span class="admin" *ngIf="item.role == 'admin'" ><ion-note>Admin du groupe</ion-note></span>
+							</ion-label>
+						</ion-col>
+					</ion-row>
+				</ion-label>
+			</ion-item>
+			<ion-item-options 
+				*ngIf="item.uid != authService.getCurrentUser() && item.role != 'admin'  && findCurrentUser().role == 'admin'">
+				<ion-item-option color="secondary" (click)="addAdmin(item)">
+				  <ion-icon slot="end" name="add"></ion-icon>
+				  Admin
+				</ion-item-option>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-list>
+		<ion-item button lines="none" (click)="quitte()"  style="border: 1px solid salmon; border-radius: 5px;">
+			<ion-label color="danger">
+				<ion-icon name="log-out-outline"></ion-icon>
+				quitter le groupe
+			</ion-label>
+		</ion-item>
+	</ion-list>
 </ion-content>

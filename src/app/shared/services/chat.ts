@@ -5,7 +5,8 @@ export interface Chat {
     photo: string,
     message: Sms[],
     type: string,
-    dataModif: any
+    dataModif: any,
+    lock: boolean
 }
 
 export interface Sms {

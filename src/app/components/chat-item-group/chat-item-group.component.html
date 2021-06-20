@@ -13,7 +13,10 @@
           <img [src]="geturl(chatService.imageChat[message.asset])">
         </p>
         <span class="text" [innerHTML]="message.message ? message.message :''"></span>
-        <!--<small class="time">{{message.dateEnv}}</small>-->
+        <div class="time">
+          <ion-icon color="primary" name="checkmark-done-outline"></ion-icon>
+          <small>{{message.dateEnv.toDate() | date:'HH:mm' }}</small>
+        </div>
       </div>
     </ion-item>
   </ng-container>
@@ -27,8 +30,8 @@
         </p>
         <span class="text" [innerHTML]="message.message ? message.message :''"></span>
         <div class="time">
-          <!--<small>{{message.dateEnv }}</small>-->
           <ion-icon color="primary" name="checkmark-done-outline"></ion-icon>
+          <small><small>{{message.dateEnv.toDate() | date:'HH:mm' }}</small></small>
         </div>
       </div>
     </ion-item>

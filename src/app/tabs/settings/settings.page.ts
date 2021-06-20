@@ -1,4 +1,8 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
+import { AlertController, PopoverController } from '@ionic/angular';
+import { LanguePropsComponent } from 'src/app/components/langue-props/langue-props.component';
+import { PopoverComponent } from 'src/app/components/popover/popover.component';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,10 +12,38 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 export class SettingsPage implements OnInit {
 
   constructor(
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private popoverCtrl: PopoverController,
+    private alertCtrl: AlertController,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
+  }
+
+  async openPopover(ev){
+    const popover = await this.popoverCtrl.create({
+      component: LanguePropsComponent,
+      event: ev
+    })
+    await popover.present()
+  }
+
+  async logout(){
+    const alert = await this.alertCtrl.create({
+      message: "vous allez etre déconnecté",
+      buttons: [
+        {text: 'annuler', role: 'cancel',},
+        {
+          text: 'OK',
+          handler : (res) => {
+            this.authService.SignOut()
+          }
+        }
+
+      ]
+    })
+    await alert.present()
   }
 
   onToogleColorTheme(event){

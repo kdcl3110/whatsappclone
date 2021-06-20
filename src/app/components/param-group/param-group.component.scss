@@ -1,0 +1,23 @@
+.photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: darkgreen;
+}
+
+.profil{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: darkgreen;
+}
+
+.admin{
+    border: 1px solid lightseagreen;
+    border-radius: 2px;
+    padding: 1px;
+
+    & ion-note{
+        color: lightseagreen;
+    }
+}

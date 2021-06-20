@@ -12,14 +12,19 @@
                 [src]="(cahtImage[chat.payload.doc.data().cid]) ? geturl(cahtImage[chat.payload.doc.data().cid]) : ''"
               >
             </ion-col>
-            <ion-col size="7">
+            <ion-col size="6">
               <ion-label>
                 <h3> {{chat.payload.doc.data().nom}}</h3>
-                <ion-note><small>{{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].message}}</small></ion-note>
+                <ion-note>
+                  <small>
+                    {{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].message}}
+                    {{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].dateEnv.toDate() | date:'HH:mm'}}
+                  </small>
+                </ion-note>
               </ion-label>
             </ion-col>
-            <ion-col size="2">
-              <ion-note>12h</ion-note>
+            <ion-col size="3">
+              <ion-note>{{chat.payload.doc.data().dataModif.toDate() | date:'dd/MM/yy'}}</ion-note>
             </ion-col>
           </ion-row>
         </ion-label>
@@ -36,14 +41,20 @@
                 alt=""
               >
             </ion-col>
-            <ion-col size="7">
+            <ion-col size="6">
               <ion-label>
                 <h3> {{findUser(chat).displayName}}</h3>
-                <ion-note><small>{{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].message}}</small></ion-note>
+                <ion-note>
+                  <ion-icon color="primary" name="checkmark-done-outline"></ion-icon>
+                  <small>
+                    {{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].message}}
+                    {{chat.payload.doc.data().message[chat.payload.doc.data().message.length - 1].dateEnv.toDate() | date:'HH:mm'}}
+                  </small>
+                </ion-note>
               </ion-label>
             </ion-col>
-            <ion-col size="2">
-              <ion-note>12h</ion-note>
+            <ion-col size="3">
+              <ion-note>{{chat.payload.doc.data().dataModif.toDate() | date:'dd/MM/yy'}}</ion-note>
             </ion-col>
           </ion-row>
         </ion-label>

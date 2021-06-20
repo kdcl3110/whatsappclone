@@ -2,11 +2,11 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button>
-        Change
+        {{ 'CHATS.change' | translate }}
       </ion-button>
     </ion-buttons>
 
-    <ion-title>Chats</ion-title>
+    <ion-title>{{ 'CHATS.title' | translate }}</ion-title>
 
     <ion-buttons slot="end">
       <ion-button routerLink="/tabs/tabs/chat-new">
@@ -25,7 +25,7 @@
       <small>diffusions</small> 
     </ion-button>
     <ion-button slot="end" size="small" fill="clear" routerLink="/tabs/tabs/new-group">
-      <small>Nouveau groupe</small> 
+      <small>{{ 'CHATS.group' | translate }}</small> 
     </ion-button>
   </ion-item>
   <app-list-chat></app-list-chat>
